@@ -5,57 +5,58 @@
   <title>SEEKR</title>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap');
-
-    :root {
-      --bg: #05070d;
-      --neon: #00fff7;
-      --neon-soft: rgba(0, 255, 247, 0.2);
-      --text: #cffffc;
-      --card: rgba(0, 255, 247, 0.05);
-    }
-
     body {
       margin: 0;
-      padding: 0;
-      font-family: 'Orbitron', monospace;
-      background: radial-gradient(circle at top, #08121f, var(--bg));
-      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #ffffff;
+      color: #000;
       overflow-x: hidden;
     }
 
-    .grid {
+    /* 🌍 BIG, VISIBLE, TILTED EARTH */
+    .earth {
       position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(0,255,247,0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,255,247,0.05) 1px, transparent 1px);
-      background-size: 40px 40px;
-      z-index: 0;
+      right: -60px;
+      top: 50%;
+      transform: translateY(-50%) rotate(-18deg);
+      font-size: 320px;
+      opacity: 0.40;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* 🌙 SMALL MOON ON THE LEFT */
+    .moon {
+      position: fixed;
+      left: -00.01px;
+      top: 38%;
+      transform: rotate(12deg);
+      font-size: 140px;
+      opacity: 0.50;
+      pointer-events: none;
+      user-select: none;
     }
 
     .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 120px 20px;
+      text-align: center;
       position: relative;
       z-index: 1;
-      max-width: 900px;
-      margin: 120px auto;
-      text-align: center;
-      padding: 20px;
     }
 
     h1 {
-      font-size: 64px;
-      letter-spacing: 6px;
-      color: var(--neon);
-      text-shadow: 0 0 20px var(--neon-soft);
-      margin-bottom: 10px;
+      font-size: 56px;
+      margin: 0;
+      font-weight: 700;
     }
 
     .tagline {
-      color: #7ffdf9;
-      opacity: 0.8;
+      font-size: 18px;
+      color: #555;
+      margin-top: 10px;
       margin-bottom: 60px;
-      letter-spacing: 2px;
     }
 
     form {
@@ -67,90 +68,95 @@
 
     input {
       width: 65%;
-      padding: 14px;
+      padding: 16px;
       font-size: 16px;
-      background: transparent;
-      color: var(--neon);
-      border: 1px solid var(--neon);
+      border-radius: 12px;
+      border: 1px solid #ddd;
       outline: none;
-      box-shadow: 0 0 20px var(--neon-soft);
-      font-family: 'Orbitron', monospace;
     }
 
-    input::placeholder {
-      color: rgba(0,255,247,0.6);
+    input:focus {
+      border-color: #000;
     }
 
     button {
-      padding: 14px 24px;
-      background: transparent;
-      color: var(--neon);
-      border: 1px solid var(--neon);
+      padding: 16px 26px;
+      font-size: 16px;
+      border-radius: 12px;
+      border: 1px solid #000;
+      background: #000;
+      color: #fff;
       cursor: pointer;
-      font-family: 'Orbitron', monospace;
-      box-shadow: 0 0 20px var(--neon-soft);
       transition: 0.2s;
     }
 
     button:hover {
-      background: var(--neon);
-      color: #000;
-      box-shadow: 0 0 40px var(--neon);
+      opacity: 0.85;
     }
 
     .result {
-      background: var(--card);
-      border: 1px solid rgba(0,255,247,0.3);
-      box-shadow: 0 0 30px var(--neon-soft);
       padding: 20px;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       text-align: left;
+      border-bottom: 1px solid #eee;
     }
 
     .url {
       font-size: 13px;
-      color: #7ffdf9;
-      opacity: 0.7;
+      color: #666;
       margin-bottom: 6px;
       word-break: break-all;
     }
 
     .link {
-      font-size: 18px;
-      color: var(--neon);
+      font-size: 20px;
+      color: #000;
       text-decoration: none;
+      font-weight: 600;
     }
 
     .link:hover {
-      text-shadow: 0 0 10px var(--neon);
+      text-decoration: underline;
     }
 
     .snippet {
       margin-top: 10px;
-      font-size: 14px;
-      opacity: 0.85;
+      font-size: 15px;
+      color: #444;
       line-height: 1.6;
     }
 
     .footer {
       margin-top: 80px;
-      font-size: 12px;
-      opacity: 0.5;
-      letter-spacing: 2px;
+      font-size: 13px;
+      color: #888;
+    }
+
+    /* 📱 Hide planets on mobile */
+    @media (max-width: 768px) {
+      .earth,
+      .moon {
+        display: none;
+      }
     }
   </style>
 </head>
 
 <body>
-  <div class="grid"></div>
+
+  <!-- 🌙 MOON -->
+  <div class="moon">🌑</div>
+
+  <!-- 🌍 EARTH -->
+  <div class="earth">🌍</div>
 
   <div class="container">
-    <h1>SEEKR</h1>
-    <div class="tagline">Scanning the knowledge grid…</div>
+    <h1>SEEKR ✨</h1>
+    <div class="tagline">Search made simple.</div>
 
     <form method="get">
-      <input type="text" name="q" placeholder="Enter query…" value="{{ query }}">
-      <button type="submit">SCAN</button>
+      <input type="text" name="q" placeholder="Search anything…" value="{{ query }}">
+      <button type="submit">Search</button>
     </form>
 
     {% for page, snippet in results %}
@@ -164,8 +170,10 @@
     {% endfor %}
 
     <div class="footer">
-      SEEKR :: Neural Search Interface
+      🌍 SEEKR · Your personal search engine<br>
+      Developed by Adarsh
     </div>
   </div>
+
 </body>
 </html>
