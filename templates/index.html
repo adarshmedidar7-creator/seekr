@@ -6,26 +6,26 @@
 
   <style>
     /* 🤖 SEEKR AI BUTTON */
-.ai-button {
-  position: fixed;
-  right: 20px;
-  bottom: 120px;
-  padding: 14px 18px;
-  background: #000;
-  color: #fff;
-  border-radius: 30px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  transition: 0.25s;
-  z-index: 10;
-}
+    .ai-button {
+      position: fixed;
+      right: 20px;
+      bottom: 120px;
+      padding: 14px 18px;
+      background: #000;
+      color: #fff;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      transition: 0.25s;
+      z-index: 10;
+    }
+    .ai-button:hover {
+      transform: translateY(-3px);
+      opacity: 0.9;
+    }
 
-.ai-button:hover {
-  transform: translateY(-3px);
-  opacity: 0.9;
-}
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -34,7 +34,7 @@
       overflow-x: hidden;
     }
 
-    /* 🌍 BIG, VISIBLE, TILTED EARTH */
+    /* 🌍 EARTH */
     .earth {
       position: fixed;
       right: -60px;
@@ -43,19 +43,17 @@
       font-size: 320px;
       opacity: 0.40;
       pointer-events: none;
-      user-select: none;
     }
 
-    /* 🌙 SMALL MOON ON THE LEFT */
+    /* 🌙 MOON */
     .moon {
       position: fixed;
-      left: -00.01px;
+      left: 0;
       top: 38%;
       transform: rotate(12deg);
       font-size: 140px;
       opacity: 0.50;
       pointer-events: none;
-      user-select: none;
     }
 
     .container {
@@ -96,10 +94,6 @@
       outline: none;
     }
 
-    input:focus {
-      border-color: #000;
-    }
-
     button {
       padding: 16px 26px;
       font-size: 16px;
@@ -108,11 +102,6 @@
       background: #000;
       color: #fff;
       cursor: pointer;
-      transition: 0.2s;
-    }
-
-    button:hover {
-      opacity: 0.85;
     }
 
     .result {
@@ -122,43 +111,15 @@
       border-bottom: 1px solid #eee;
     }
 
-    .url {
-      font-size: 13px;
-      color: #666;
-      margin-bottom: 6px;
-      word-break: break-all;
-    }
-
-    .link {
-      font-size: 20px;
-      color: #000;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .link:hover {
-      text-decoration: underline;
-    }
-
-    .snippet {
-      margin-top: 10px;
-      font-size: 15px;
-      color: #444;
-      line-height: 1.6;
-    }
-
     .footer {
       margin-top: 80px;
       font-size: 13px;
       color: #888;
     }
 
-    /* 📱 Hide planets on mobile */
+    /* 📱 MOBILE */
     @media (max-width: 768px) {
-      .earth,
-      .moon {
-        display: none;
-      }
+      .earth, .moon { display: none; }
     }
   </style>
 </head>
@@ -166,7 +127,7 @@
 <body>
 
   <!-- 🌙 MOON -->
-  <div class="moon">🌑</div>
+  <div class="moon">🌕</div>
 
   <!-- 🌍 EARTH -->
   <div class="earth">🌍</div>
@@ -182,81 +143,86 @@
 
     {% for page, snippet in results %}
       <div class="result">
-        <div class="url">{{ page }}</div>
-        <a class="link" href="{{ page }}" target="_blank">{{ page }}</a>
-        {% if snippet %}
-          <div class="snippet">{{ snippet }}</div>
-        {% endif %}
+        <a href="{{ page }}" target="_blank">{{ page }}</a>
+        <div>{{ snippet }}</div>
       </div>
     {% endfor %}
 
     <div class="footer">
-      🌍 SEEKR · Your personal search engine<br>
-      Developed by Adarsh
+      🌍 SEEKR · Developed by Adarsh
     </div>
   </div>
 
-<!-- 🤖 SEEKR AI BUTTON -->
-<div class="ai-button" onclick="openSeekrAI()">
-  🤖 Seekr AI
-</div>
+  <!-- 🤖 AI BUTTON -->
+  <div class="ai-button" onclick="openSeekrAI()">🤖 Seekr AI</div>
 
-<!-- 🧠 SEEKR AI HOME SCREEN (ADDED ONLY) -->
-<div id="seekrAIHome" style="
-  position: fixed;
-  inset: 0;
-  background: white;
-  z-index: 999;
-  display: none;
-  text-align: center;
-  padding: 80px 20px;
-">
-  <h1 style="font-size:56px;">SEEKR AI 🤖</h1>
-  <p style="font-size:18px;color:#555;margin-bottom:50px;">
-    Ask. Learn. Explore smarter.
-  </p>
+  <!-- 🧠 AI SCREEN -->
+  <div id="seekrAIHome" style="
+    position: fixed;
+    inset: 0;
+    background: white;
+    z-index: 999;
+    display: none;
+    padding: 80px 20px;
+    text-align: center;
+  ">
+    <h1>SEEKR AI 🤖</h1>
+    <p style="color:#555;">Ask. Learn. Explore smarter.</p>
 
-  <input
-    type="text"
-    placeholder="Ask Seekr AI anything…"
-    style="
-      width: 70%;
-      max-width: 500px;
-      padding: 16px;
-      font-size: 16px;
-      border-radius: 12px;
-      border: 1px solid #ddd;
-      outline: none;
-    "
-  >
+    <div id="chat" style="
+      max-width:700px;
+      margin:40px auto;
+      text-align:left;
+    "></div>
 
-  <div style="margin-top:50px;">
-    <button
-      onclick="closeSeekrAI()"
-      style="
-        padding: 16px 30px;
-        font-size: 15px;
-        border-radius: 12px;
-        border: 1px solid #000;
-        background: #000;
-        color: #fff;
-        cursor: pointer;
-      "
-    >
-      Close
-    </button>
+    <div style="display:flex;justify-content:center;gap:10px;">
+      <input id="aiInput" placeholder="Ask anything…" style="
+        width:60%;
+        padding:16px;
+        border-radius:12px;
+        border:1px solid #ddd;
+      ">
+      <button onclick="sendAI()">Send</button>
+    </div>
+
+    <div style="margin-top:40px;">
+      <button onclick="closeSeekrAI()">Close</button>
+    </div>
   </div>
-</div>
 
-<script>
-  function openSeekrAI() {
-    document.getElementById("seekrAIHome").style.display = "block";
-  }
+  <script>
+    function openSeekrAI() {
+      document.getElementById("seekrAIHome").style.display = "block";
+    }
+    function closeSeekrAI() {
+      document.getElementById("seekrAIHome").style.display = "none";
+    }
 
-  function closeSeekrAI() {
-    document.getElementById("seekrAIHome").style.display = "none";
-  }
-</script>
+    async function sendAI() {
+      const input = document.getElementById("aiInput");
+      const chat = document.getElementById("chat");
+      const msg = input.value.trim();
+      if (!msg) return;
+
+      chat.innerHTML += `<div><b>You:</b> ${msg}</div>`;
+      input.value = "";
+      chat.innerHTML += `<div id="typing"><b>AI:</b> thinking…</div>`;
+
+      const res = await fetch("/ai", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({message: msg})
+      });
+      const data = await res.json();
+      document.getElementById("typing").innerHTML = `<b>AI:</b> ${data.reply}`;
+    }
+
+    document.addEventListener("keydown", e => {
+      if (e.key === "Enter" && document.getElementById("seekrAIHome").style.display === "block") {
+        sendAI();
+      }
+    });
+  </script>
 
 </body>
 </html>
