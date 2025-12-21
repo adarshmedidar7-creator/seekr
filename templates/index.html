@@ -5,6 +5,27 @@
   <title>SEEKR</title>
 
   <style>
+    /* 🤖 SEEKR AI BUTTON */
+.ai-button {
+  position: fixed;
+  right: 20px;
+  bottom: 120px;
+  padding: 14px 18px;
+  background: #000;
+  color: #fff;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  transition: 0.25s;
+  z-index: 10;
+}
+
+.ai-button:hover {
+  transform: translateY(-3px);
+  opacity: 0.9;
+}
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -174,6 +195,68 @@
       Developed by Adarsh
     </div>
   </div>
+
+<!-- 🤖 SEEKR AI BUTTON -->
+<div class="ai-button" onclick="openSeekrAI()">
+  🤖 Seekr AI
+</div>
+
+<!-- 🧠 SEEKR AI HOME SCREEN (ADDED ONLY) -->
+<div id="seekrAIHome" style="
+  position: fixed;
+  inset: 0;
+  background: white;
+  z-index: 999;
+  display: none;
+  text-align: center;
+  padding: 80px 20px;
+">
+  <h1 style="font-size:56px;">SEEKR AI 🤖</h1>
+  <p style="font-size:18px;color:#555;margin-bottom:50px;">
+    Ask. Learn. Explore smarter.
+  </p>
+
+  <input
+    type="text"
+    placeholder="Ask Seekr AI anything…"
+    style="
+      width: 70%;
+      max-width: 500px;
+      padding: 16px;
+      font-size: 16px;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+      outline: none;
+    "
+  >
+
+  <div style="margin-top:50px;">
+    <button
+      onclick="closeSeekrAI()"
+      style="
+        padding: 16px 30px;
+        font-size: 15px;
+        border-radius: 12px;
+        border: 1px solid #000;
+        background: #000;
+        color: #fff;
+        cursor: pointer;
+      "
+    >
+      Close
+    </button>
+  </div>
+</div>
+
+<script>
+  function openSeekrAI() {
+    document.getElementById("seekrAIHome").style.display = "block";
+  }
+
+  function closeSeekrAI() {
+    document.getElementById("seekrAIHome").style.display = "none";
+  }
+</script>
 
 </body>
 </html>
