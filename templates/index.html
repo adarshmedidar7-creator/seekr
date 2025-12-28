@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SEEKR</title>
+  <title>Querya</title>
 
   <style>
-    /* 🤖 SEEKR AI BUTTON */
+    /* 🤖 QUERYA AI BUTTON */
     .ai-button {
       position: fixed;
       right: 20px;
@@ -119,7 +119,7 @@
       .earth, .moon { display: none; }
     }
 
-    /* 🧠 CHAT BUBBLES (ADDED) */
+    /* 🧠 CHAT BUBBLES */
     .chat-box {
       max-height: 360px;
       overflow-y: auto;
@@ -159,8 +159,8 @@
   <div class="earth">🌍</div>
 
   <div class="container">
-    <h1>SEEKR ✨</h1>
-    <div class="tagline">Search made simple.</div>
+    <h1>Querya ✨</h1>
+    <div class="tagline">Search. Ask. Understand.</div>
 
     <form method="get">
       <input type="text" name="q" placeholder="Search anything…" value="{{ query }}">
@@ -175,14 +175,15 @@
     {% endfor %}
 
     <div class="footer">
-      🌍 SEEKR · Developed by Adarsh
+      🌍 Querya · Developed by Adarsh
     </div>
   </div>
 
-  <div class="ai-button" onclick="openSeekrAI()">🤖 Seekr AI</div>
+  <!-- 🤖 QUERYA AI BUTTON -->
+  <div class="ai-button" onclick="openQueryaAI()">🤖 Querya AI</div>
 
-  <!-- 🧠 AI SCREEN -->
-  <div id="seekrAIHome" style="
+  <!-- 🧠 QUERYA AI SCREEN -->
+  <div id="queryaAIHome" style="
     position: fixed;
     inset: 0;
     background: white;
@@ -191,7 +192,7 @@
     padding: 80px 20px;
     text-align: center;
   ">
-    <h1>SEEKR AI 🤖</h1>
+    <h1>Querya AI 🤖</h1>
     <p style="color:#555;">Ask. Learn. Explore smarter.</p>
 
     <div id="chat" class="chat-box"></div>
@@ -207,16 +208,16 @@
     </div>
 
     <div style="margin-top:40px;">
-      <button onclick="closeSeekrAI()">Close</button>
+      <button onclick="closeQueryaAI()">Close</button>
     </div>
   </div>
 
   <script>
-    function openSeekrAI() {
-      document.getElementById("seekrAIHome").style.display = "block";
+    function openQueryaAI() {
+      document.getElementById("queryaAIHome").style.display = "block";
     }
-    function closeSeekrAI() {
-      document.getElementById("seekrAIHome").style.display = "none";
+    function closeQueryaAI() {
+      document.getElementById("queryaAIHome").style.display = "none";
     }
 
     async function sendAI() {
@@ -245,7 +246,7 @@
     }
 
     document.addEventListener("keydown", e => {
-      if (e.key === "Enter" && document.getElementById("seekrAIHome").style.display === "block") {
+      if (e.key === "Enter" && document.getElementById("queryaAIHome").style.display === "block") {
         sendAI();
       }
     });
