@@ -150,6 +150,27 @@
       margin-right: auto;
       border-bottom-left-radius: 4px;
     }
+
+    /* 🎤 MIC PULSE (ADDED) */
+    .mic-wrapper {
+      position: relative;
+    }
+
+    .mic-pulse {
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.15);
+      animation: pulse 1.2s ease-out infinite;
+      display: none;
+      z-index: -1;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.9); opacity: 0.6; }
+      70% { transform: scale(1.6); opacity: 0; }
+      100% { opacity: 0; }
+    }
   </style>
 </head>
 
@@ -179,7 +200,6 @@
     </div>
   </div>
 
-  <!-- 🤖 QUERYA AI BUTTON -->
   <div class="ai-button" onclick="openQueryaAI()">🤖 Querya AI</div>
 
   <!-- 🧠 QUERYA AI SCREEN -->
@@ -204,6 +224,13 @@
         border-radius:12px;
         border:1px solid #ddd;
       ">
+
+      <!-- 🎤 MIC BUTTON (ADDED) -->
+      <div class="mic-wrapper">
+        <div class="mic-pulse" id="micPulse"></div>
+        <button onclick="startVoice()">🎤</button>
+      </div>
+
       <button onclick="sendAI()">Send</button>
     </div>
 
@@ -250,6 +277,27 @@
         sendAI();
       }
     });
+
+    /* 🎤 VOICE INPUT (ADDED) */
+    let recognition;
+    if ("webkitSpeechRecognition" in window) {
+      recognition = new webkitSpeechRecognition();
+      recognition.lang = "en-US";
+      recognition.onstart = () =>
+        document.getElementById("micPulse").style.display = "block";
+      recognition.onend = () =>
+        document.getElementById("micPulse").style.display = "none";
+      recognition.onerror = () =>
+        document.getElementById("micPulse").style.display = "none";
+      recognition.onresult = e => {
+        document.getElementById("aiInput").value =
+          e.results[0][0].transcript;
+      };
+    }
+
+    function startVoice() {
+      if (recognition) recognition.start();
+    }
   </script>
 
 </body>
