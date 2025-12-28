@@ -34,7 +34,6 @@
       overflow-x: hidden;
     }
 
-    /* 🌍 EARTH */
     .earth {
       position: fixed;
       right: -60px;
@@ -45,7 +44,6 @@
       pointer-events: none;
     }
 
-    /* 🌙 MOON */
     .moon {
       position: fixed;
       left: 0;
@@ -117,19 +115,47 @@
       color: #888;
     }
 
-    /* 📱 MOBILE */
     @media (max-width: 768px) {
       .earth, .moon { display: none; }
+    }
+
+    /* 🧠 CHAT BUBBLES (ADDED) */
+    .chat-box {
+      max-height: 360px;
+      overflow-y: auto;
+      margin: 30px auto;
+      max-width: 700px;
+      padding: 10px;
+    }
+
+    .msg {
+      max-width: 75%;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      border-radius: 14px;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .user {
+      background: #000;
+      color: #fff;
+      margin-left: auto;
+      border-bottom-right-radius: 4px;
+    }
+
+    .ai {
+      background: #eee;
+      color: #000;
+      margin-right: auto;
+      border-bottom-left-radius: 4px;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- 🌙 MOON -->
   <div class="moon">🌕</div>
-
-  <!-- 🌍 EARTH -->
   <div class="earth">🌍</div>
 
   <div class="container">
@@ -153,7 +179,6 @@
     </div>
   </div>
 
-  <!-- 🤖 AI BUTTON -->
   <div class="ai-button" onclick="openSeekrAI()">🤖 Seekr AI</div>
 
   <!-- 🧠 AI SCREEN -->
@@ -169,11 +194,7 @@
     <h1>SEEKR AI 🤖</h1>
     <p style="color:#555;">Ask. Learn. Explore smarter.</p>
 
-    <div id="chat" style="
-      max-width:700px;
-      margin:40px auto;
-      text-align:left;
-    "></div>
+    <div id="chat" class="chat-box"></div>
 
     <div style="display:flex;justify-content:center;gap:10px;">
       <input id="aiInput" placeholder="Ask anything…" style="
@@ -204,9 +225,14 @@
       const msg = input.value.trim();
       if (!msg) return;
 
-      chat.innerHTML += `<div><b>You:</b> ${msg}</div>`;
+      chat.innerHTML += `<div class="msg user">${msg}</div>`;
       input.value = "";
-      chat.innerHTML += `<div id="typing"><b>AI:</b> thinking…</div>`;
+
+      const aiMsg = document.createElement("div");
+      aiMsg.className = "msg ai";
+      aiMsg.innerText = "Thinking…";
+      chat.appendChild(aiMsg);
+      chat.scrollTop = chat.scrollHeight;
 
       const res = await fetch("/ai", {
         method: "POST",
@@ -214,7 +240,8 @@
         body: JSON.stringify({message: msg})
       });
       const data = await res.json();
-      document.getElementById("typing").innerHTML = `<b>AI:</b> ${data.reply}`;
+      aiMsg.innerText = data.reply || "No response 😶";
+      chat.scrollTop = chat.scrollHeight;
     }
 
     document.addEventListener("keydown", e => {
